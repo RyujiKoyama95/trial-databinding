@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="buttonText"
-            type="String" />
+            name="vm"
+            type="com.uminari.trialdatabinding.viewmodels.InputTextViewModel" />
     </data>
 
     <LinearLayout
@@ -34,7 +34,7 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{buttonText}"
+            android:text="@{vm.buttonText}"
             tools:text="Ready" />
     </LinearLayout>
 </layout>
