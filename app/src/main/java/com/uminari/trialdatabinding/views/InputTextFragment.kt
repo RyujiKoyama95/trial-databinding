@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.uminari.trialdatabinding.R
 import com.uminari.trialdatabinding.databinding.InputTextFragmentBinding
+import com.uminari.trialdatabinding.viewmodels.InputTextViewModel
 
 class InputTextFragment: Fragment() {
+
 private lateinit var binding: InputTextFragmentBinding
+
+private val viewModel = InputTextViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,11 +21,20 @@ private lateinit var binding: InputTextFragmentBinding
         savedInstanceState: Bundle?
     ): View? {
         binding = InputTextFragmentBinding.inflate(inflater, container, false)
+        binding.vm = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonText = "dataBinding done"
+
+        binding.editText.addTextChangedListener { text ->
+            viewModel.updateButton(text.isNullOrBlank())
+        }
+        binding.button.setOnClickListener {
+            val text = binding.editText.text.toString()
+            viewModel.submitText(text)
+        }
     }
 }
